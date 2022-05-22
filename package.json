@@ -1,0 +1,27 @@
+{
+  "name": "chatbackend",
+  "version": "1.0.0",
+  "description": "hw, eventSource, webSockets, chat backend",
+  "main": "server.js",
+  "author": "Denis Efremenko <denvirus83@mail.ru>",
+  "license": "ISC",
+  "scripts": {
+    "list": "forever list",
+    "start": "forever server.js",
+    "watch": "forever -w server.js"
+  },
+  "devDependencies": {
+    "@koa/cors": "^3.3.0",
+    "forever": "^4.0.3",
+    "http-event-stream": "^0.2.0",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "uuid": "^8.3.2",
+    "ws": "^8.5.0"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}
