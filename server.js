@@ -7,7 +7,6 @@ const koaBody = require("koa-body");
 const User = require("./User.js");
 const Message = require("./Message");
 const utils = require("./utils.js");
-const { clearTimeout } = require("timers");
 
 const app = new Koa();
 
@@ -141,25 +140,25 @@ wsServer.on("connection", (ws, req) => {
   const newMessages = () => {
     const message = getNewMessage();
     if (message) {
-    const data = JSON.stringify({
-      event: createMessage,
-      message: message,
-    });
-    ws.send(data);
+      const data = JSON.stringify({
+        event: createMessage,
+        message: message,
+      });
+      ws.send(data);
     }
   };
 
   const tolking = () => {
     const message = getNewMessage();
     if (message) {
-    const data = JSON.stringify({
-      event: createMessage,
-      message: message,
-    });
-    ws.send(data);
-   }
-   conversation = setTimeout(tolking, 10000);
-  }
+      const data = JSON.stringify({
+        event: createMessage,
+        message: message,
+      });
+      ws.send(data);
+    }
+    conversation = setTimeout(tolking, 10000);
+  };
 
   let conversation = null;
 
@@ -181,7 +180,7 @@ wsServer.on("connection", (ws, req) => {
       }
     }
 
-     if (request.event === allUsers) {
+    if (request.event === allUsers) {
       data = JSON.stringify({
         event: allUsers,
         users: users,
@@ -204,7 +203,6 @@ wsServer.on("connection", (ws, req) => {
       });
       conversation = setTimeout(tolking, 10000);
     }
-
 
     if (request.event === createMessage) {
       const { id, text } = request.data;
@@ -237,19 +235,18 @@ wsServer.on("connection", (ws, req) => {
       if (user) {
         const index = users.findIndex(({ id }) => id === request.data.id);
         users.splice(index, 1);
-        if (user.status === 'user') {
+        if (user.status === "user") {
           clearTimeout(conversation);
           data = dataColors;
         } else {
           data = JSON.stringify({
-          event: removeUser,
-          id: user.id,
-        });
+            event: removeUser,
+            id: user.id,
+          });
         }
       }
     }
     [...wsServer.clients].filter((o) => o.readyState === WS.OPEN).forEach((o) => o.send(data));
-
   });
 });
 
