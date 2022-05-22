@@ -64,15 +64,15 @@ app.use(cors());
 
 const router = new Router();
 
-router.get("/users", async (ctx) => {
+router.get("users", async (ctx) => {
   ctx.response.body = users;
 });
 
-router.get("/messages", async (ctx) => {
+router.get("messages", async (ctx) => {
   ctx.response.body = messages;
 });
 
-router.post("/users", async (ctx) => {
+router.post("users", async (ctx) => {
   const { name, color, status } = ctx.request.body;
   if (checkUserName(name)) {
     const user = getNewUser(name, color, status);
@@ -83,7 +83,7 @@ router.post("/users", async (ctx) => {
   }
 });
 
-router.post("/messages/:id", async (ctx) => {
+router.post("messages/:id", async (ctx) => {
   const { text } = ctx.request.body;
   const user = users.find(({ id }) => id === ctx.params.id);
   if (user) {
@@ -94,7 +94,7 @@ router.post("/messages/:id", async (ctx) => {
   }
 });
 
-router.put("/users/:id", async (ctx) => {
+router.put("users/:id", async (ctx) => {
   const user = users.find(({ id }) => id === ctx.params.id);
   if (user) {
     user.checked = user.checked === true ? false : true;
@@ -104,7 +104,7 @@ router.put("/users/:id", async (ctx) => {
   }
 });
 
-router.delete("/users/:id", async (ctx) => {
+router.delete("users/:id", async (ctx) => {
   const index = users.findIndex(({ id }) => id === ctx.params.id);
   if (index !== -1) {
     users.splice(index, 1);
